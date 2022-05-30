@@ -19,14 +19,28 @@ def consulta_codigo_barras(data_set,codigo_barras):
     cont_min = float('inf')
     max = 0
     min = 0
+    obj = 0
     for i in data_set:
         if(i[1] == codigo_barras):
+            obj = i
             pmc0 = float(i[5].replace(',','.'))
             if(pmc0 > cont_max):
-                max = i
+                max = pmc0
             if(pmc0 < cont_min):
-                min = i
-    return max,min
+                min = pmc0
+            break
+    for k in data_set:
+        if(k[2] == obj[2]):
+            pmc0 = float(k[5].replace(',','.'))
+            if(pmc0 > max):
+                max = pmc0
+            if(pmc0 < min):
+                min = pmc0
+    dif = max - min
+    print('Valor Máximo: %.2f' %max)
+    print('Valor Mínimo: %.2f' %min)
+    print('Diferença: %.2f' %dif)
+    return 0
 
 #Função para ver a porcentagem da lista de concessão de crédito tributário
 def consulta_lista_concessao(data_set):
@@ -90,7 +104,7 @@ def ler_arquivo(dados,name):
 
 data_set = []
 
-data_set = ler_arquivo(data_set,'TA_PRECO_MEDICAMENTO.csv')
+data_set = ler_arquivo(data_set,'DellITAcademyGabrielTasca/TA_PRECO_MEDICAMENTO.csv')
 print("1 - Consulte medicamento por nome")
 print("2 - Consultar o preço máximo e mínimo por código de barras")
 print("3 - Consultar a Lista de Concessão de Crédito Tributário (PIS/COFINS)")
@@ -106,9 +120,7 @@ if(option == '1'):
 elif(option == '2'):
     print("Digite o código de barras: ")
     codigo_barras = input()
-    max,min = consulta_codigo_barras(data_set,codigo_barras)
-    print(max)
-    print(min)
+    consulta_codigo_barras(data_set,codigo_barras)
 elif(option == '3'):
     consulta_lista_concessao(data_set)
 
