@@ -19,7 +19,7 @@ class TestApp(unittest.TestCase):
         data_set = []
         data_set = ler_arquivo(data_set,'DellITAcademyGabrielTasca/TA_PRECO_MEDICAMENTO.csv')
         self.assertEqual(consulta_codigo_barras(data_set,'SINGULAIR'),  194.41,41.51,152.90)
-
+    
 
 if __name__ == '__name__':
     unittest.main()

@@ -1,4 +1,5 @@
 import csv
+from Medicamento import Medicamento
 
 
 #Função para consulta de medicamento por nome e comercializados em 2020
@@ -108,7 +109,8 @@ def ler_arquivo(dados,name):
                 obj = []
                 for k in colunas:
                     obj.append(i[k])
-                dados.append(obj)
+                m = Medicamento(obj[0],obj[1],obj[2],obj[3],obj[4],obj[5],obj[6],obj[7])
+                dados.append(m)
         return dados
     except FileNotFoundError:
         print("Arquivo não encontrado")
@@ -117,6 +119,7 @@ def ler_arquivo(dados,name):
 data_set = []
 data_set = ler_arquivo(data_set,'DellITAcademyGabrielTasca/TA_PRECO_MEDICAMENTO.csv')
 out = False
+data_set[0].toString()
 while(not(out)):
     print("1 - Consulte medicamento por nome")
     print("2 - Consultar o preço máximo e mínimo por código de barras")
