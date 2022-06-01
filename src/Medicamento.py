@@ -54,7 +54,7 @@ class Medicamento:
         dados = []
         #Adiciona na variavel dados se o campo COMERCIALIZAÇÃO 2020 for sim e o nome for igual a coluna PRODUTO
         for i in data_set:
-            if(i.comercializado_2020 == 'Sim' and i.produto == nome.upper()):
+            if(i.comercializado_2020 == 'Sim' and nome.upper() in i.produto):
                 dados.append(i)
         #Retorna a variável dados com os medicamento que foram encontrados
         if(len(dados) == 0):
