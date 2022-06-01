@@ -48,20 +48,29 @@ class Medicamento:
             return 0
 
     def consulta_nome(data_set,nome):
+        if(len(data_set) == 0):
+            print("Dados vazios")
+            return 0
         dados = []
         #Adiciona na variavel dados se o campo COMERCIALIZAÇÃO 2020 for sim e o nome for igual a coluna PRODUTO
         for i in data_set:
             if(i.comercializado_2020 == 'Sim' and i.produto == nome.upper()):
                 dados.append(i)
         #Retorna a variável dados com os medicamento que foram encontrados
+        if(len(dados) == 0):
+            print("Nenhum medicamento encontrado")
+            return 0
         print("Resultado: ")
         for i in range(len(dados)):
-            dados[i].toString()
+            print(dados[i].toString_modificado())
         return dados
 
 
     #Função para consulta de medicamento por código de barras 
     def consulta_codigo_barras(data_set,codigo_barras):
+        if(len(data_set) == 0):
+            print("Dados vazios")
+            return 0
         #Cria o valor máximo float e valor mínimo floaT
         cont_max = -float('inf')
         cont_min = float('inf')
@@ -80,8 +89,13 @@ class Medicamento:
                 if(pmc0 < cont_min):
                     min = pmc0
                 break
+        if (obj == 0):
+            print("Código de barras não encontrado")
+            return 0
+        lista_medicamento = []
         for k in data_set:
             if(k.produto == obj.produto):
+                lista_medicamento.append(k)
                 if(pmc0 == ''):
                     print("Valor nulo na tabela. Substituído por 0.")
                     pmc0 = '0'
@@ -91,14 +105,20 @@ class Medicamento:
                 if(pmc0 < min):
                     min = pmc0
         dif = max - min
+        print("Registros: ")
+        for j in lista_medicamento:
+            print(j.toString())
         print("Resultado: ")
         print('Valor Máximo: %.2f' %max)
         print('Valor Mínimo: %.2f' %min)
         print('Diferença: %.2f' %dif)
-        return 0
+        return max,min,dif
 
     #Função para ver a porcentagem da lista de concessão de crédito tributário
     def consulta_lista_concessao(data_set):
+        if(len(data_set) == 0):
+            print("Dados vazios")
+            return 0
         cont_negativa, cont_neutra, cont_total, cont_positiva = 0, 0, 0, 0
         for i in data_set:
             if(i.comercializado_2020 == 'Sim'):
@@ -121,9 +141,11 @@ class Medicamento:
         print('Negativa         '+ s_cont_negativa + '%           ' + '*'*int(cont_negativa))
         print('Neutra           '+ s_cont_neutra   +'%            ' +  '*'*int(cont_neutra))
         print('Positiva         '+ s_cont_positiva +'%           ' + '*'*int(cont_positiva))
-        return data_set
+        return cont_negativa,cont_neutra,cont_positiva
 
     def toString(self):
-        print( "[" + self.substancia + "], [" + self.ean1 + "], [" + self.produto + "], [" + self.apresentacao + "], [" + 
-            self.pf_sem_impostos + "], [" + self.pmc0 + "], [" + self.lista_concessao + "], [" + self.comercializado_2020 + "]")
+        return "(" + self.substancia + "), (" + self.ean1 + "), (" + self.produto + "), (" + self.apresentacao + "), (" + self.pf_sem_impostos + "), (" + self.pmc0 + "), (" + self.lista_concessao + "), (" + self.comercializado_2020 + ")"
+
+    def toString_modificado(self):
+        return "(" + self.substancia + "), (" +  self.produto + "), (" + self.apresentacao + "), (" + self.pf_sem_impostos + ")"
         
