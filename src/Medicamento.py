@@ -11,13 +11,17 @@ class Medicamento:
         self.lista_concessao = lista_concessao
         self.comercializado_2020 = comercializado_2020
     
-    def ler_arquivo(dados,name): 
+    def ler_arquivo(name): 
+        dados = []
         try:
             with open(name) as arq:
+                #Le o arquivo csv
                 ler = csv.reader(arq,delimiter=";")
+                #Retira a primeira linha
                 string = ler.__next__()
                 colunas = []
                 cont = 0
+                #Acha o index dos campos necessários
                 for i in string:
                     if(i == 'APRESENTAÇÃO'):
                         colunas.append(cont)
@@ -36,12 +40,14 @@ class Medicamento:
                     elif(i == 'COMERCIALIZAÇÃO 2020'):
                         colunas.append(cont)
                     cont += 1
+                #Adiciona cada objeto numa lista
                 for i in ler:
                     obj = []
                     for k in colunas:
                         obj.append(i[k])
                     m = Medicamento(obj[0],obj[1],obj[2],obj[3],obj[4],obj[5],obj[6],obj[7])
                     dados.append(m)
+            #Retorna o data_set
             return dados
         except FileNotFoundError:
             print("Arquivo não encontrado")
@@ -56,13 +62,14 @@ class Medicamento:
         for i in data_set:
             if(i.comercializado_2020 == 'Sim' and nome.upper() in i.produto):
                 dados.append(i)
-        #Retorna a variável dados com os medicamento que foram encontrados
+        #Caso não possua nenhum com o nome selecionado
         if(len(dados) == 0):
             print("Nenhum medicamento encontrado")
             return 0
         print("Resultado: ")
         for i in range(len(dados)):
             print(dados[i].toString_modificado())
+        #Retorna a variável dados com os medicamento que foram encontrados
         return dados
 
 
@@ -77,6 +84,7 @@ class Medicamento:
         max = 0
         min = 0
         obj = 0
+        #Laço para achar o produto com o código de barras e colocar na variavel obj
         for i in data_set:
             if(i.ean1 == codigo_barras):
                 obj = i
@@ -89,10 +97,12 @@ class Medicamento:
                 if(pmc0 < cont_min):
                     min = pmc0
                 break
+        
         if (obj == 0):
             print("Código de barras não encontrado")
             return 0
         lista_medicamento = []
+        #Laço para achar os outros produtos com o mesmo nome e calcular o max e min 
         for k in data_set:
             if(k.produto == obj.produto):
                 lista_medicamento.append(k)
@@ -104,10 +114,12 @@ class Medicamento:
                     max = pmc0
                 if(pmc0 < min):
                     min = pmc0
+        #Calculo da diferença
         dif = max - min
         print("Registros: ")
         for j in lista_medicamento:
             print(j.toString())
+            print("")
         print("Resultado: ")
         print('Valor Máximo: %.2f' %max)
         print('Valor Mínimo: %.2f' %min)
@@ -120,6 +132,7 @@ class Medicamento:
             print("Dados vazios")
             return 0
         cont_negativa, cont_neutra, cont_total, cont_positiva = 0, 0, 0, 0
+        #Laço para calcular o total, negativa, neutra e positiva
         for i in data_set:
             if(i.comercializado_2020 == 'Sim'):
                 cont_total += 1
