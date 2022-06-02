@@ -119,7 +119,7 @@ class Medicamento:
         print("Registros: ")
         for j in lista_medicamento:
             print(j.toString())
-            print("")
+        print(" ")
         print("Resultado: ")
         print('Valor Máximo: %.2f' %max)
         print('Valor Mínimo: %.2f' %min)

@@ -2,8 +2,7 @@ import csv
 from Medicamento import Medicamento
 
 m = Medicamento
-data_set = []
-data_set = m.ler_arquivo(data_set,'DellITAcademyGabrielTasca/TA_PRECO_MEDICAMENTO.csv')
+data_set = m.ler_arquivo('DellITAcademyGabrielTasca/TA_PRECO_MEDICAMENTO.csv')
 out = False
 data_set[0].toString()
 while(not(out)):

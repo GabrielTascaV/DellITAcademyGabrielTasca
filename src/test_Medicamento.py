@@ -67,3 +67,4 @@ def test_consulta_lista_concessao_correto():
     assert cont_negativa == '33.43'
     assert cont_neutra == '0.36'
     assert cont_positiva == '66.21'
+
