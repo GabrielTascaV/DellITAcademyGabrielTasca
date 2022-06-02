@@ -14,12 +14,15 @@ def test_consulta_nome_correto():
     m = Medicamento
     data_set = m.ler_arquivo('DellITAcademyGabrielTasca/TA_PRECO_MEDICAMENTO.csv')
     data = []
-    data.append(Medicamento('LOSARTANA POTÁSSICA', '7897337707336', 'COZAAR', '100 MG COM REV CT BL AL PVC/PE/PVDC BCO OPC X 30', '47,50', '65,67', 'Positiva', 'Sim'))
-    data.append(Medicamento('LOSARTANA POTÁSSICA', '7897337706384', 'COZAAR', '50 MG COM REV CT BL AL PVC/PE/PVDC BCO OPC X 30', '32,21', '44,53', 'Positiva', 'Sim'))
+    data.append(Medicamento('LOSARTANA POTÁSSICA', '7897337707336', 'COZAAR', '100 MG COM REV CT BL AL PVC/PE/PVDC BCO OPC X 30', 
+                                                            '47,50', '65,67', 'Positiva', 'Sim'))
+    data.append(Medicamento('LOSARTANA POTÁSSICA', '7897337706384', 'COZAAR', '50 MG COM REV CT BL AL PVC/PE/PVDC BCO OPC X 30', 
+                                                            '32,21', '44,53', 'Positiva', 'Sim'))
     assert m.consulta_nome(data_set,'COZAAR')[0].ean1 == data[0].ean1
     assert m.consulta_nome(data_set,'COZAAR')[1].ean1 == data[1].ean1
 
 #Teste de consulta por nome do produto invalido
+
 def test_consulta_nome_invalido():
     m = Medicamento
     data_set = m.ler_arquivo('DellITAcademyGabrielTasca/TA_PRECO_MEDICAMENTO.csv')
